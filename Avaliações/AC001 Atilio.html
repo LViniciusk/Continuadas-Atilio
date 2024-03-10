@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Modelo de uso do MathJax (HTML+Latex)</title>
+
+  <!-- MATHJAX 3 (através da CDN) -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- MATHJAX 3 (salvo no computador) -->
+  <!-- <script type="text/javascript" async src="../../../Aplicativos/MathJax-master/es5/tex-mml-chtml.js" async></script> -->
+</head>
+
+<body>
+  <h1>Avaliação Continuada 01</h1>
+
+  <p>
+    As repostas podem ser enviadas em arquivo html (use o modelo que eu forneci)
+    ou podem ser enviadas diretamente pelo editor de texto aqui no Moodle.
+    Não esqueça, se for copiar sua resposta do html para o Moodle, copie apenas o
+    conteúdo que estiver entre as tags <strong>body</strong>.
+  </p>
+
+
+
+
+
+  <p>
+    <hr>
+  </p>
+
+  <p>
+    <strong>Questão 1:</strong>
+    Escreva pseudocódigos para os procedimentos <strong>minHeap-decreaseKey(A,i,newKey), minFixDown(A, i),
+      minMoveUp(A,i),
+      minHeap-increaseKey(A,i,newKey), minHeapInsert(A,key) e extractMinimum(A)</strong>,
+    que implementem uma fila de prioridade <strong>mínima</strong> com um heap de mínimo.
+    <strong>Obs.:</strong> Note que todos esses procedimentos são versões similares às vistas em sala,
+    só que aqui estou pedindo para uma fila de prioridades mínima.
+    Estou pedindo pseudocódigo, não escreva implementações em linguagem de programação específica.
+  </p>
+  <hr> <!-- Início da questão 1 -->
+  <p>
+  <pre><code>
+  <strong>minHheap-decreaseKey(A,i,newKey)</strong><br>
+  1.     if (A[i] &lt; newKey)
+  2.       error "Nova chave é maior que a chave atual"
+  3.     A[i] = newKey
+  4.     minMoveUp(A, i)
+  </code></pre>
+  </p>
+
+  <hr> 
+
+
+  <p>
+  <pre><code>
+  <strong>minFixDown(A, i)</strong><br>
+  1.     n = A.heapSize
+  2.     l = 2i
+  3.     while (l &lt;= n)
+  4.        r = 2i + 1
+  5.        menor = i
+  6.        if (A[l] &lt; A[menor])
+  7.           menor = l
+  8.        if (r &lt;= n and A[r] &lt; A[menor])
+  9.           menor = r
+  10.       if (menor != i)
+  11.          troca A[i] com A[menor]
+  12.       else
+  13.          break
+  </code></pre>
+  </p>
+
+  <hr> 
+
+
+  <p>
+  <pre><code>
+  <strong>minMoveUp(A,i)</strong><br>
+1.     while (i &gt; 1 and A[i] &lt; A[i/2])
+2.        troca A[i] com A[i/2]
+3.        i = i/2
+  </code></pre>
+  </p>
+
+  <hr> 
+
+
+  <p>
+  <pre><code>
+  <strong>minHeap-increaseKey(A,i,newKey)</strong><br>
+1.     if (A[i] &gt; newKey)
+2.        error "Nova chave é menor que a chave atual"
+3.     A[i] = newKey
+4.     minFixDown(A,i)
+  </code></pre>
+  </p>
+
+  <hr> 
+
+
+  <p>
+  <pre><code>
+  <strong>minHeapInsert(A,key)</strong><br>
+1.     A.heapSize += 1
+2.     A[A.heapSize] = key
+3.     minMoveUp(A, A.heapSize)
+
+  </code></pre>
+  </p>
+
+  <hr> 
+
+
+  <p>
+  <pre><code>
+  <strong>extractMinimum(A)</strong><br>
+1.     if (A.heapSize &lt; 1)
+2.        error "Heap underflow"
+3.     min = A[1]
+4.     A[1] = A[A.heapSize]
+5.     A.heapSize -= 1
+6.     minFixDown(A, 1)
+7.     return min
+
+  </code></pre>
+  </p>
+
+  <hr> <!-- Fim da questão 1 -->
+
+
+
+  <p>
+    <strong>Questão 2:</strong> Seja \(A\) um heap de máximo. A operação <strong>HEAP-DELETE(A, i)</strong> elimina
+    o item no nó \(i\) do heap \(A\). Dê uma implementação correta de <strong>HEAP-DELETE(A,i)</strong>
+    que seja executada no tempo \(O(\lg n)\) para um heap de máximo de \(n\) elementos.
+  </p>
+
+  <hr> 
+
+
+  <p>
+  <pre><code>
+  <strong>HEAP-DELETE(A, i)</strong><br>
+1.     if (i &gt; A.heapSize)
+2.        error "Índice inválido"
+3.     A[i] = A[A.heapSize]
+4.     A.heapSize -= 1
+5.     if ( i > 1 and A[i] &gt; A[i/2])
+6.        minMoveUp(A, i)
+7.     else
+8.        minFixDown(A, i)
+
+  </code></pre>
+  </p>
+
+<hr> 
+
+
+
+  <p>
+    <strong>Questão 3:</strong> Um heap \(d\)-ário é semelhante a um heap binário,
+    mas (com uma única exceção possível) nós que não são folhas têm \(d\) filhos em vez de dois filhos.
+  <ol type="a">
+    <li>
+      Como você representaria um heap \(d\)-ário de máximo em um vetor? Justifique. <br>
+
+        <hr>
+        1. A indexação começa a partir de 1 para simplificar os cálculos dos índices dos filhos e do pai de um nó<br>
+        2. Para um nó no índice i, seus filhos estão localizados nos índices d*(i-1) + 2 até d*(i-1) + d + 1<br>
+        3. O pai de um nó no índice i está localizado no índice <span>\( \lfloor \frac{i-2}{d} + 1 \rfloor \)</span>
+        <hr>
+
+    </li>
+    <li>
+      Qual é a altura de um heap \(d\)-ário de \(n\) elementos em termos de \(n\) e \(d\)? Justifique. <br>
+        
+          <hr>
+          Como cada nó tem \(d\) filhos, o numero total de nós em um heap \(d\)-ário de altura \(h\) é: \(n = 1 + d + d^2 + \ldots + d^h = \frac{d^{h+1}-1}{d-1}\). <br>
+          Isolando \(h\) obtemos: <br>
+          \(d^{h+1} = n(d-1) + 1\) <br>   
+          \(h+1 = \log_d(n(d-1) + 1)\) <br>
+          \(h = \log_d(n(d-1) + 1) - 1\) <br>
+          Logo, a altura de um heap \(d\)-ário de \(n\) elementos é \(h = \log_d(n(d-1) + 1) - 1\) ou: <br>
+           \(h = \log_d(n)\)
+          <hr>
+    </li>
+    <li>
+      Dê uma implementação eficiente de EXTRACT-MAXIMUM() em um heap de máximo \(d\)-ário.
+      Analise seu tempo de execução em termos de \(d\) e \(n\).
+      <hr>
+      <pre><code>
+      EXTRACT-MAXIMUM(A)<br>
+      1.     if (A.heapSize &lt; 1)
+      2.        error "Heap underflow"
+      3.     max = A[1]
+      4.     A[1] = A[A.heapSize]
+      5.     A.heapSize -= 1
+      6.     maxFixDown(A, 1)
+      7.     return max
+
+      maxFixDown(A, i)<br>
+      1.     maior = i
+      2.     n = A.heapSize
+      3.     for j in range(1, d)
+      4.        filho = d*(i-1) + j + 1
+      5.        if (filho &lt;= n and A[filho] &gt; A[maior])
+      6.           maior = filho
+      7.     if (maior != i)
+      8.        troca A[i] com A[maior]
+      9.        maxFixDown(A, maior)
+      </code></pre><br>
+      
+      EXTRACT-MAXIMUM em um heap \(d\)-ário tem complexidade \(O(d \log_d n)\). <br>
+      Pois a função maxFixDown é chamada \(O(\log_d n)\) vezes, que por sua vez tem complexidade \(O(d)\).
+      <hr>
+    </li>
+  </ol>
+  </p>
+
+  <p>
+    <strong>Questão 4:</strong> Um algoritmo de ordenação é <strong>estável</strong>
+    quando números com o mesmo valor aparecem no arranjo de saída na mesma ordem em
+    que se encontram no arranjo de entrada. Essa propriedade é importante quando os
+    dados satélites que acompanham os elementos sendo ordenados devem ser transportados
+    juntamente com o elemento. <strong>Mostre que o HeapSort não é estável</strong>.
+  </p>
+  <p>
+    <hr>
+    O HeapSort não é estável pois a operação de troca de elementos no heap não preserva a ordem dos elementos iguais, ou seja, se dois elementos iguais estão em posições diferentes no heap, após a ordenação eles podem estar em posições diferentes no arranjo ordenado, mantendo a propriedade do heap, mas não a estabilidade.
+    <hr>
+  </p>
+
+
+</body>
+
+</html>

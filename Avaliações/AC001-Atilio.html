@@ -231,7 +231,19 @@
   </p>
   <p>
     <hr>
-    O HeapSort não é estável pois a operação de troca de elementos no heap não preserva a ordem dos elementos iguais, ou seja, se dois elementos iguais estão em posições diferentes no heap, após a ordenação eles podem estar em posições diferentes no arranjo ordenado, mantendo a propriedade do heap, mas não a estabilidade.
+    O HeapSort não é estável pois a operação de troca de elementos no heap não preserva a ordem dos elementos iguais, ou seja, se dois elementos iguais estão em posições diferentes no heap, após a ordenação eles podem estar em posições diferentes no arranjo ordenado <br>
+    Exemplo: <br>
+    <pre><code>
+      heapSort()
+
+      1.    while (A.heapSize &gt; 1)
+      2.       troca A[1] com A[A.heapSize]
+      3.       A.heapSize -= 1
+      4.       maxFixDown(A, 1)
+    </code></pre>
+
+    Considerando esse codigo, se tivermos um heap A = [10,10,10,10,10,10], após a ordenação o arranjo ordenado será [10,10,10,10,10,10], mas a ordem dos elementos iguais foi alterada, pois o primeiro elemento 10 foi trocado com o último elemento 10, e isso ja é suficiente para mostrar que o HeapSort não é estável.
+
     <hr>
   </p>
 

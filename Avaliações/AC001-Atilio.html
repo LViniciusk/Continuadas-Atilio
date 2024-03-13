@@ -59,9 +59,9 @@
   <p>
   <pre><code>
   <strong>minFixDown(A, i)</strong><br>
-  1.     n = A.heapSize
-  2.     l = 2i
-  3.     while (l &lt;= n)
+  1.     n = A.heapSize     
+  2.     while (2i &lt;= n)
+  3         l = 2i
   4.        r = 2i + 1
   5.        menor = i
   6.        if (A[l] &lt; A[menor])
@@ -70,8 +70,9 @@
   9.           menor = r
   10.       if (menor != i)
   11.          troca A[i] com A[menor]
-  12.       else
-  13.          break
+  12.          i = menor
+  13.       else
+  14.          break
   </code></pre>
   </p>
 
